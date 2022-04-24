@@ -92,7 +92,23 @@ const specialCharacters = [
 ];
 
 const getPasswordLength = () => {
-  return 10;
+  const length = parseInt(
+    prompt("how many characters would you like your password to be?")
+  );
+  //conditional statement to check if password length is a number, and has the correct length of min 8 characters and max 128 characters
+  if (Number.isNaN(length)) {
+    alert("password length must be entered as a number");
+    return null;
+  }
+
+  if (length < 8) {
+    alert("password length must be more than 8 characters");
+    return null;
+  }
+  if (length > 128) {
+    alert("password length must be less than 128 characters");
+    return null;
+  }
 };
 
 const getPasswordCriteria = () => {
