@@ -1,25 +1,3 @@
-// Assignment Code
-const generateBtn = document.querySelector("#generate");
-
-//main function to generate random password
-const generatePassword = () => {
-  // get the password length
-  const passwordLength = getPasswordLength();
-  if (passwordLength) {
-    // calling password critera function
-    const passwordCriteria = getPasswordCriteria();
-    if (passwordCriteria.length === 0) {
-      alert("please at least choose an option");
-    } else {
-      // create random password
-      const randomPassword = createRandomPassword(
-        passwordLength,
-        passwordCriteria
-      );
-      return randomPassword;
-    }
-  }
-};
 // array of lowercase characters for the password
 const lowerCaseCharacters = [
   "a",
@@ -110,8 +88,8 @@ const specialCharacters = [
   ".",
 ];
 
-// function for getting the password length from user
-const getPasswordLength = () => {
+// function for getting the password criteria from user
+function getPasswordCriteria() {
   //function for generating a password length from user
   const passwordLength = parseInt(
     prompt("how many characters would you like your password to be?")
@@ -131,9 +109,6 @@ const getPasswordLength = () => {
     alert("password length must be less than 128 characters");
     return null;
   }
-};
-// function for getting the password criteria from user
-const getPasswordCriteria = () => {
   const hasSpecialCharacters = confirm(
     "Click OK to confirm including special characters"
   );
@@ -167,6 +142,7 @@ const getPasswordCriteria = () => {
   //object to store user input
 
   const passwordCriteria = {
+    passwordLength: passwordLength,
     hasLowerCaseCharacters: hasLowerCaseCharacters,
     hasUpperCaseCharacters: hasUpperCaseCharacters,
     hasNumericalCharacters: hasNumericalCharacters,
@@ -174,20 +150,19 @@ const getPasswordCriteria = () => {
   };
   console.log(passwordCriteria);
   return passwordCriteria;
-};
+}
 
 //function for getting a random element from an array
-const getRandom = (_passwordCriteria, passwordLength) => {
-  var randIndex = Math.floor(Math.random() * passwordLength.length);
-  var randElement = passwordLength[randIndex];
-  console.log(randElement);
+function getRandom(arr) {
+  var randIndex = Math.floor(Math.random() * arr.length);
+  var randElement = arr[randIndex];
+  console.log("random number " + [randElement]);
   return randElement;
-};
+}
 
 // main function to generate the random password
-const createRandomPassword = (passwordLength, passwordCriteria) => {
+function createRandomPassword() {
   var options = getPasswordCriteria();
-  getPasswordLength();
 
   //variable to store password as it's being concatenated*****
   var results = [];
@@ -227,25 +202,28 @@ const createRandomPassword = (passwordLength, passwordCriteria) => {
   if (options.hasNumericalCharacters) {
     potentialCharacters = potentialCharacters.concat(numericCharacters);
     guaranteedCharacters.push(getRandom(numericCharacters));
-
-    //for loop to iterate over the password length, selecting random indices from the array of potential characters
-    for (let i = 0; i < options.length; i++) {
-      const potentialCharacters = getRandom(potentialCharacters);
-      results.push(potentialCharacters);
-    }
-
-    //min in at least one of each guaranteed character in the results
-    for (let i = 0; i < guaranteedCharacters.length; i++) {
-      results[i] = guaranteedCharacters[i];
-    }
-    //change the results into a string and pass into write
-    return results.join("");
   }
-};
+
+  //for loop to iterate over the password length, selecting random indices from the array of potential characters
+  for (let i = 0; i < options.length; i++) {
+    const potentialCharacters = getRandom(potentialCharacters);
+    results.push(potentialCharacters);
+  }
+
+  //min in at least one of each guaranteed character in the results
+  for (let i = 0; i < guaranteedCharacters.length; i++) {
+    results[i] = guaranteedCharacters[i];
+  }
+  //change the results into a string and pass into write
+  return results.join("");
+}
+
+//reference to the generate element
+var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  const password = generatePassword();
+  const password = createRandomPassword();
   const passwordText = document.querySelector("#password");
 
   passwordText.value = password;
