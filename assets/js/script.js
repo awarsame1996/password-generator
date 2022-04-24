@@ -1,6 +1,25 @@
 // Assignment Code
 const generateBtn = document.querySelector("#generate");
 
+//main function to generate random password
+const generatePassword = () => {
+  // get the password length
+  const passwordLength = getPasswordLength();
+  if (passwordLength) {
+    // calling password critera function
+    const passwordCriteria = getPasswordCriteria();
+    if (passwordCriteria.length === 0) {
+      alert("please at least choose an option");
+    } else {
+      // create random password
+      const randomPassword = createRandomPassword(
+        passwordLength,
+        passwordCriteria
+      );
+      return randomPassword;
+    }
+  }
+};
 // array of lowercase characters for the password
 const lowerCaseCharacters = [
   "a",
@@ -91,27 +110,30 @@ const specialCharacters = [
   ".",
 ];
 
-// function for getting the password criteria from user
-function getPasswordCriteria() {
+// function for getting the password length from user
+const getPasswordLength = () => {
   //function for generating a password length from user
-  const length = parseInt(
+  const passwordLength = parseInt(
     prompt("how many characters would you like your password to be?")
   );
+  console.log(passwordLength);
   //conditional statement to check if password length is a number, and has the correct length of min 8 characters and max 128 characters
-  if (Number.isNaN(length)) {
+  if (Number.isNaN(passwordLength)) {
     alert("password length must be entered as a number");
     return null;
   }
 
-  if (length < 8) {
+  if (passwordLength < 8) {
     alert("password length must be more than 8 characters");
     return null;
   }
-  if (length > 128) {
+  if (passwordLength > 128) {
     alert("password length must be less than 128 characters");
     return null;
   }
-
+};
+// function for getting the password criteria from user
+const getPasswordCriteria = () => {
   const hasSpecialCharacters = confirm(
     "Click OK to confirm including special characters"
   );
@@ -144,27 +166,28 @@ function getPasswordCriteria() {
 
   //object to store user input
 
-  var passwordCriteria = {
-    length: length,
+  const passwordCriteria = {
     hasLowerCaseCharacters: hasLowerCaseCharacters,
     hasUpperCaseCharacters: hasUpperCaseCharacters,
     hasNumericalCharacters: hasNumericalCharacters,
     hasSpecialCharacters: hasSpecialCharacters,
   };
-
+  console.log(passwordCriteria);
   return passwordCriteria;
-}
+};
 
 //function for getting a random element from an array
-function getRandom(arr) {
-  const randomIndex = Math.floor(Math.random() * arr.passwordLength);
-  const randElement = arr[randomIndex];
+const getRandom = (_passwordCriteria, passwordLength) => {
+  var randIndex = Math.floor(Math.random() * passwordLength.length);
+  var randElement = passwordLength[randIndex];
+  console.log(randElement);
   return randElement;
-}
+};
 
 // main function to generate the random password
-function generatePassword() {
+const createRandomPassword = (passwordLength, passwordCriteria) => {
   var options = getPasswordCriteria();
+  getPasswordLength();
 
   //variable to store password as it's being concatenated*****
   var results = [];
@@ -176,9 +199,7 @@ function generatePassword() {
   var guaranteedCharacters = [];
 
   //check if an options objects exists, if not exit the function
-  if (!options) {
-    return null;
-  }
+  if (!options) return null;
 
   //Conditional statement that adds array of special characters into array of possible characters based on user input
   // Push new random special character to guaranteedCharacters
@@ -208,19 +229,19 @@ function generatePassword() {
     guaranteedCharacters.push(getRandom(numericCharacters));
 
     //for loop to iterate over the password length, selecting random indices from the array of potential characters
-    for (var i = 0; i < options.length; i++) {
-      var potentialCharacters = getRandom(potentialCharacters);
+    for (let i = 0; i < options.length; i++) {
+      const potentialCharacters = getRandom(potentialCharacters);
       results.push(potentialCharacters);
     }
 
     //min in at least one of each guaranteed character in the results
-    for (var i = 0; i < options.length; i++) {
+    for (let i = 0; i < guaranteedCharacters.length; i++) {
       results[i] = guaranteedCharacters[i];
     }
     //change the results into a string and pass into write
     return results.join("");
   }
-}
+};
 
 // Write password to the #password input
 function writePassword() {
