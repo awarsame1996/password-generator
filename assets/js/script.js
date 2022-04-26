@@ -1,5 +1,10 @@
 // Assignment Code
 const generateBtn = document.querySelector("#generate");
+//variables for characters
+const lowercaseCharacters = "abcdefghijklmnopqrstuvwxyz";
+const uppercaseCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const specialCharacterCharacters = "!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~";
+const numericCharacters = "0123456789";
 
 // get password length function
 const getPasswordLength = () => {
@@ -41,19 +46,19 @@ const getPasswordCriteria = () => {
   const passwordCondition = [];
   //conditional statement for lowercase
   if (lowercase) {
-    passwordCondition.push("abcdefghijklmnopqrstuvwxyz");
+    passwordCondition.push(lowercaseCharacters);
   }
   //conditional statement for uppercase
   if (uppercase) {
-    passwordCondition.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+    passwordCondition.push(uppercaseCharacters);
   }
   //conditional statement for numeric
   if (numeric) {
-    passwordCondition.push("0123456789");
+    passwordCondition.push(numericCharacters);
   }
   //conditional statement for special character
   if (specialCharacter) {
-    passwordCondition.push("!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~");
+    passwordCondition.push(specialCharacterCharacters);
   }
   return passwordCondition;
 };
