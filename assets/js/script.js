@@ -21,16 +21,40 @@ const getPasswordLength = () => {
   else if (length > 128) {
     alert("password length must be less than 128 characters");
     return null;
-  } else console.log(length);
+  } else return length;
 };
-
+// get password criteria function
 const getPasswordCriteria = () => {
-  return [
-    "abcdefghijklmnopqrstuvwxyz",
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-    "0123456789",
-    " !\"#$%&'()*+,-./:;<=>?@[]^_`{|}~",
-  ];
+  //variable to store boolean for inclusion of lowercase character
+  const lowercase = confirm("do you want lowercase in your password?");
+  //variable to store boolean for inclusion of uppercase character
+  const uppercase = confirm("do you want uppercase in your password?");
+  //variable to store boolean for inclusion of numeric character
+  const numeric = confirm("do you want numeric in your password?");
+  //variable to store boolean for inclusion of special character
+  const specialCharacter = confirm(
+    "do you want special character in your password?"
+  );
+
+  //variable to store conditions of the password in array
+  const passwordCondition = [];
+  //conditional statement for lowercase
+  if (lowercase) {
+    passwordCondition.push("abcdefghijklmnopqrstuvwxyz");
+  }
+  //conditional statement for uppercase
+  if (uppercase) {
+    passwordCondition.push("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  }
+  //conditional statement for numeric
+  if (numeric) {
+    passwordCondition.push("0123456789");
+  }
+  //conditional statement for special character
+  if (specialCharacter) {
+    passwordCondition.push("!\"#$%&'()*+,-./:;<=>?@[]^_`{|}~");
+  }
+  return passwordCondition;
 };
 
 const createRandomPassword = () => {
