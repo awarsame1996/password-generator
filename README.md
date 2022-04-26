@@ -8,7 +8,7 @@ This Challenge requires me to modify starter code to create an application that 
 
 ### TODO
 
-Criterias for password
+Criteria for password
 
 - lowercase "abcdefghijklmnopqrstuvwxyz"
 - uppercase "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -32,8 +32,8 @@ Rules
 
 ## Deployed URL
 
-Github repository: [here]()
-Live URL: [here]()
+Github repository: [here](https://github.com/awarsame1996/password-generator)
+Live URL: [here](https://awarsame1996.github.io/password-generator/)
 
 ## Technologies
 
