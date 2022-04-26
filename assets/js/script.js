@@ -1,8 +1,27 @@
 // Assignment Code
 const generateBtn = document.querySelector("#generate");
 
+// get password length function
 const getPasswordLength = () => {
-  return 10;
+  // variable to store length of password
+  const length = parseInt(prompt("what is you desired length of password?"));
+
+  //conditional statement to check if the password is a number.
+
+  if (Number.isNaN(length)) {
+    alert("please enter a number");
+    return null;
+  }
+  //conditional statement to check if password has more than 8 characters
+  else if (length < 8) {
+    alert("password length must be more than 8 characters");
+    return null;
+  }
+  //conditional statement to check if password has less than 128 characters
+  else if (length > 128) {
+    alert("password length must be less than 128 characters");
+    return null;
+  } else console.log(length);
 };
 
 const getPasswordCriteria = () => {
