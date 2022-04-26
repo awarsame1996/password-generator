@@ -1,5 +1,18 @@
 // Assignment Code
 const generateBtn = document.querySelector("#generate");
+// main function to generate the random password
+const generatePassword = () => {
+  // get the password length
+  const passwordLength = getPasswordLength();
+
+  // get the password criteria
+  const passwordCriteria = getPasswordCriteria();
+
+  // create random password
+  const password = createRandomPassword(passwordLength, passwordCriteria);
+
+  return password;
+};
 
 // get password length function
 const getPasswordLength = () => {
@@ -57,22 +70,22 @@ const getPasswordCriteria = () => {
   return passwordCondition;
 };
 
-const createRandomPassword = () => {
-  return "kdUE28(@d0";
-};
-
-// main function to generate the random password
-const generatePassword = () => {
-  // get the password length
-  const passwordLength = getPasswordLength();
-
-  // get the password criteria
-  const passwordCriteria = getPasswordCriteria();
-
-  // create random password
-  const password = createRandomPassword(passwordLength, passwordCriteria);
-
-  return password;
+const createRandomPassword = (passwordCriteria, passwordLength) => {
+  const passwordArray = [];
+  for (let i = 0; i < passwordLength; i += 1) {
+    //select random categories from the array
+    const randCategoriesIndex = Math.floor(
+      Math.random() * passwordCriteria.length
+    );
+    //get random categories
+    const randCategories = passwordCriteria[randCategoriesIndex];
+    // get random index
+    const randIndex = Math.floor(Math.random() * passwordCriteria.length);
+    // get random character
+    const randCharacter = randCategories.charAt(randIndex);
+    passwordArray.push(randCharacter);
+  }
+  return passwordArray.join("");
 };
 
 // Write password to the #password input
