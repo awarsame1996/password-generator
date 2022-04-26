@@ -60,6 +60,7 @@ const getPasswordCriteria = () => {
   if (specialCharacter) {
     passwordCondition.push(specialCharacterCharacters);
   }
+  console.log("passwordCondition " + passwordCondition);
   return passwordCondition;
 };
 
@@ -94,7 +95,7 @@ const generatePassword = () => {
     // get the password criteria
     const passwordCriteria = getPasswordCriteria();
     if (passwordCriteria.length === 0) {
-      alert("please chose at least one option");
+      alert("please choose at least one option");
       return null;
     } else {
       // create random password
